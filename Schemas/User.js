@@ -19,13 +19,19 @@ User.create({
     birthday: "11-02-1991",
     email: "gcottin26@gmail.com",
     password: "gekdnjcd26"
-}), function () {
-    User.find(function (err, users) {
-        if(err) {
-            return console.error(err);
-        }
-
-        console.log(users);
-    })
+}), function (err) {
+    if(err) {
+        return console.error(err);
+    }
 };
 
+/**
+ * Read
+ */
+User.find({
+    firstName: "Guillaume"
+}), function (err) {
+    if(err) {
+        return console.error(err);
+    }
+};
