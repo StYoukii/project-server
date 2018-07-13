@@ -4,7 +4,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+let cors = require('cors');
 
 let user = require('./routes/user');
 let app = express();
@@ -34,8 +34,16 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+// Enable CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
+mongoose.Promise = require('bluebird');
+module.exports = app;
 
 mongoose.connect('mongodb://StYoukii:gekdnjcd26@ds121871.mlab.com:21871/project', { useNewUrlParser: true, promiseLibrary: require('bluebird') })
     .then(() =>  console.log('connection succesful'))
