@@ -4,17 +4,21 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
-let cors = require('cors');
 
 let user = require('./routes/user');
+let event = require('./routes/event');
 let app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
+
 app.use('/users', express.static(path.join(__dirname, 'dist')));
 app.use('/user', user);
+
+app.use('/events', express.static(path.join(__dirname, 'dist')));
+app.use('/event', event);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
